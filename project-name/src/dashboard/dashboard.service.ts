@@ -3,13 +3,19 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class DashboardService {
     delete(id: string) {
-        throw new Error("Method not implemented.");
+        delete this.data[this.data.findIndex(item => item.id == id)];
+        return `removed report by id ${id}`
     }
-    update(id: string, dashboard: any) {
-        throw new Error("Method not implemented.");
+    update(id:string, dashboard:any):any{
+        let obj=this.data.find(item=>item.id==id)
+        obj.name= dashboard.name
+        obj.type= dashboard.type
+
+        return obj
     }
     create(dashboard: any) {
-        return this.data.push(dashboard);
+        this.data.push(dashboard)
+        return dashboard
     }
     find(id: string) {
         return this.data.find(item=>item.id==id);
